@@ -1,30 +1,35 @@
-let containerElement = document.querySelector(".bars-container");
+class Bar {
+    constructor(){
+        this.value = Math.ceil(Math.random()*100);
+        this.element = this.makeBar(this.value);
+    }
 
-const generateRandomArray = () => {
+    makeBar = (height) => {
+        const newDiv = document.createElement("div");
+        newDiv.classList.add("bars");
+        newDiv.style.height = `${height}%`;
+        return newDiv;
+    }
+}
+
+const makeBars = () => {
+    const numberOfBars = 100;
     let array = [];
-    let arrayLength = 100;
-    let maxNumber = 100;
-
-    for(let i = 0; i < arrayLength; i++){
-        array[i] = Math.ceil(Math.random()*maxNumber);
+    for(let i = 0; i < numberOfBars; i++){
+        array[i] = new Bar();
     }
 
     return array;
 }
 
-const makeBar = (height) => {
-    const newDiv = document.createElement("div");
-    newDiv.classList.add("bars");
-    newDiv.style.height = `${height}%`;
-    return newDiv;
-}
+let arrayOfBars = makeBars();
 
-const makeBars = () => {
-    let arr = generateRandomArray();
-    arr.forEach((rand) => {
-        let bar = makeBar(rand);
-        containerElement.appendChild(bar);
+const renderBars = (array) => {
+    const containerElement = document.querySelector(".bars-container");
+    containerElement.innerHTML = "";
+    array.forEach(el => {
+        containerElement.appendChild(el.element);
     });
 }
 
-makeBars();
+renderBars(arrayOfBars);
