@@ -37,7 +37,7 @@ renderBars(arrayOfBars);
 const selectionSort = (array) => {
   //index of start of unsorted array
   let sortStart = 0;
-
+  let storedObject;
   //iterates through entire array for sort
   for (let i = 0; i < array.length; i++) {
     let min = 1000000;
@@ -45,17 +45,21 @@ const selectionSort = (array) => {
 
     //finds min in unsorted part of array
     for (let j = sortStart; j < array.length; j++) {
-      if (array[j] < min) {
-        min = array[j];
+      if (array[j].value < min) {
+        min = array[j].value;
         minIndex = j;
       }
     }
     //places min found above at end of sorted part of array and places number in sortStart in mins position //(the numbers swap position)
+    storedObject = array[minIndex];
     array[minIndex] = array[sortStart];
-    array[sortStart] = min;
+    array[sortStart] = storedObject;
+
+    renderBars(array);
 
     //increases start index of unsorted part of array by one
     sortStart++;
   }
-  return array;
 };
+
+selectionSort(arrayOfBars);
